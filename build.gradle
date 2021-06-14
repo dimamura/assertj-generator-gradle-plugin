@@ -1,6 +1,6 @@
 buildscript {
     ext.kotlin_version = '1.4.31'
-    ext.dokka_version = '0.10.0'
+    ext.dokka_version = '1.4.32'
 
     repositories {
         mavenCentral()
@@ -21,7 +21,6 @@ group 'com.github.dimamura'
 version '1.1.3-SNAPSHOT.0.6'
 
 apply plugin: 'kotlin'
-apply plugin: 'maven'
 apply plugin: 'maven-publish'
 apply plugin: 'org.jetbrains.dokka'
 
@@ -29,9 +28,6 @@ sourceCompatibility = 1.8
 
 repositories {
     mavenCentral()
-    maven {
-        url ('https://dl.bintray.com/kotlin/dokka')
-    }
 }
 
 dependencies {
@@ -39,10 +35,6 @@ dependencies {
         exclude module: 'logback-classic'
     }
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
-}
-
-dokka {
-    outputFormat = "javadoc"
 }
 
 gradlePlugin {
@@ -90,7 +82,7 @@ publishing {
 
 afterEvaluate {
     javadoc.enabled = false
-    publishPluginJavaDocsJar.from(dokka)
+    publishPluginJavaDocsJar.from(dokkaJavadoc)
 }
 
 compileKotlin {
